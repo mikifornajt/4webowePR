@@ -1,0 +1,55 @@
+<div class="card shadow-sm p-4 mt-4 mx-auto" style="max-width: 600px;">
+    <h3 class="mb-4 text-center">🔄 Zwrot Roweru i Kasa</h3>
+    
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger fw-bold text-center">@ViewBag.Error</div>
+    }
+
+    @if (ViewBag.CustomerName != null)
+    {
+        <!-- EKRAN SUKCESU I RACHUNKU -->
+        <div class="alert alert-success text-center">
+            <h4>Dziękujemy! Rower zwrócony pomyślnie.</h4>
+        </div>
+
+        <div class="bg-light p-3 rounded mb-4 border">
+            <p class="mb-1">Klient oddający sprzęt: <strong class="fs-5">@ViewBag.CustomerName</strong></p>
+            <p class="mb-1">Czas wypożyczenia: <strong>@ViewBag.Days dni</strong></p>
+            <hr />
+            <h4 class="mb-1">Do zapłaty: <span class="text-danger fw-bold">@ViewBag.Total.ToString("0.00") zł</span></h4>
+            <p class="text-muted small">Termin zapłaty: @ViewBag.Deadline (3 dni)</p>
+        </div>
+
+        <h5 class="mb-3">Wybierz formę płatności:</h5>
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-dark text-start p-3 fs-5">
+                📱 <strong>BLIK</strong> - Szybka płatność telefonem
+            </button>
+            <button class="btn btn-outline-primary text-start p-3 fs-5">
+                💳 <strong>Karta</strong> - Visa / Mastercard
+            </button>
+            <button class="btn btn-outline-success text-start p-3 fs-5">
+                💵 <strong>Gotówka</strong> - Płatność w kasie
+            </button>
+        </div>
+
+        <a href="/Bikes" class="btn btn-secondary w-100 mt-4 fw-bold">Wróć do listy rowerów</a>
+    }
+    else
+    {
+        <!-- FORMULARZ WPISYWANIA KODU -->
+        <form asp-action="Return" method="post">
+            <div class="mb-4">
+                <label class="fw-bold fs-5 mb-2">Wpisz unikalny 5-cyfrowy Kod Zwrotu</label>
+                <input type="number" name="rentalCode" class="form-control form-control-lg text-center fw-bold letter-spacing" placeholder="np. 48291" required />
+            </div>
+            <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold">Znajdź Wypożyczenie</button>
+        </form>
+    }
+</div>
+
+<style>
+    /* Malutki styl żeby kod wyglądał lepiej w okienku */
+    .letter-spacing { letter-spacing: 5px; }
+</style>
